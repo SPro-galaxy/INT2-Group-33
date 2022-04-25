@@ -52,28 +52,35 @@ def create_model(input_shape):
     model.add(Conv2D(filters=32, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
+    model.add(Dropout(0.05))
 
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
+    model.add(Dropout(0.05))
 
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
+    model.add(Dropout(0.05))
+
+    model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same"))
+    model.add(Activation("relu"))
+    model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same"))
+    model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.05))
 
     # flattening the convolutions
     model.add(Flatten())
     # fully-connected layers
     model.add(Dense(1024))
     model.add(Activation("relu"))
-    model.add(Dropout(0.5))
+    model.add(Dropout(0.1))
     model.add(Dense(num_classes, activation="softmax"))
 
     # print the summary of the model architecture
