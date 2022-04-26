@@ -17,16 +17,17 @@ categories = {
     9: "truck"
 }
 
-# load the testing set
-# (_, _), (X_test, y_test) = load_data()
+# Load data from dataset.
 ds_train, ds_test, info = load_data()
-# load the model with final model weights
+
+# Load the model with final model weights.
 model = load_model("results/cifar10-model-v1.h5")
-# evaluation
+
+# Evaluation
 loss, accuracy = model.evaluate(ds_test, steps=info.splits["test"].num_examples // batch_size)
 print("Test accuracy:", accuracy*100, "%")
 
-# get prediction for this image
+# Do single predicion for test image.
 data_sample = next(iter(ds_test))
 sample_image = data_sample[0].numpy()[0]
 sample_label = categories[data_sample[1].numpy()[0]]
@@ -34,7 +35,7 @@ prediction = np.argmax(model.predict(sample_image.reshape(-1, *sample_image.shap
 print("Predicted label:", categories[prediction])
 print("True label:", sample_label)
 
-# show the first image
+# Display the image.
 plt.axis('off')
 plt.imshow(sample_image)
 plt.show()
