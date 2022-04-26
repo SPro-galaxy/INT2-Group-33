@@ -43,3 +43,8 @@ Adding a new Conv layer with 256 filters and raising dropout on all Conv layers 
 
 # tc9
 `tc8` with learning rate on Adam optimizer changed from 0.001 to 0.0005.
+
+# tc10
+`tc8` with learning rate on Adam optimizer changed from 0.001 to 0.00007 and Dropout 0.55.
+
+**Really promising, simulat results to `tc3` very little overfitting and looks like we'd get a big increase with more training.**
