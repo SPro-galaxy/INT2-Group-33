@@ -1,5 +1,5 @@
 # Testing notes
-To view performance logs...
+All tests carried out to 90 epochs. To view performance logs...
 ```sh
 tensorboard --logdir="logs"
 ```
@@ -19,3 +19,8 @@ Adding a new Conv layer with 256 filters.
 Adding two new Conv layers with 256 and 512 filters.
 
 **Failed.**
+
+# tc5
+Adding a new Conv layer with 256 filters and another fully connected layer.
+
+**Results were almost the same as `tc3` but more sporadic, some clear outliers.**
