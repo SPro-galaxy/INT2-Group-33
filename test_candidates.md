@@ -14,3 +14,8 @@ Lowered dropout on all Conv layers to 0.15.
 Adding a new Conv layer with 256 filters.
 
 **This shows promise as the val_accuracy is still increasing at epoch 90.**
+
+# tc4
+Adding two new Conv layers with 256 and 512 filters.
+
+**Failed.**
