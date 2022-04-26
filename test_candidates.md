@@ -29,3 +29,8 @@ Adding a new Conv layer with 256 filters and another fully connected layer.
 Adding a new Conv layer with 256 filters and three extra fully connected layers.
 
 **Failed.**
+
+# tc7
+Adding a new Conv layer with 256 filters and lowering dropout on all Conv layers to 0.1.
+
+**It seems like lowering the dropout to this level massivly increased the overfitting to the training data.**
