@@ -3,6 +3,7 @@ All tests carried out to 90 epochs. To view performance logs...
 ```sh
 tensorboard --logdir="logs"
 ```
+Best results so far `tc1`, `tc3`, `tc8`.
 
 # tc1
 Original code, no changes made.
@@ -34,3 +35,8 @@ Adding a new Conv layer with 256 filters and three extra fully connected layers.
 Adding a new Conv layer with 256 filters and lowering dropout on all Conv layers to 0.1.
 
 **It seems like lowering the dropout to this level massivly increased the overfitting to the training data.**
+
+# tc8
+Adding a new Conv layer with 256 filters and raising dropout on all Conv layers to 0.35.
+
+**This appears to have helped negate the overfitting issue and provides very similar performance to `tc3`.**
