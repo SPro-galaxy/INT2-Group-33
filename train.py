@@ -2,11 +2,12 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation, Flatten
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc8"
+version = "0.1.0tc9"
 epochs = 90
 
 # Hyper-parameters
@@ -90,7 +91,8 @@ def create_model(input_shape):
     model.summary()
 
     # Training the model using adam optimizer.
-    model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+    opt = Adam(learning_rate=0.0005)
+    model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
     return model
 
 
