@@ -7,8 +7,8 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc10"
-epochs = 90
+version = "0.1.0tc11"
+epochs = 512
 
 # Hyper-parameters
 batch_size = 64
@@ -91,7 +91,7 @@ def create_model(input_shape):
     model.summary()
 
     # Training the model using adam optimizer.
-    opt = Adam(learning_rate=0.00007)
+    opt = Adam(learning_rate=0.00001)
     model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
     return model
 
