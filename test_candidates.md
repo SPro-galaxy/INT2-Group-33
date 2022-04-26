@@ -24,3 +24,8 @@ Adding two new Conv layers with 256 and 512 filters.
 Adding a new Conv layer with 256 filters and another fully connected layer.
 
 **Results were almost the same as `tc3` but more sporadic, some clear outliers.**
+
+# tc6
+Adding a new Conv layer with 256 filters and three extra fully connected layers.
+
+**Failed.**

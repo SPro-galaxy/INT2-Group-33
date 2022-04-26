@@ -6,7 +6,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc5"
+version = "0.1.0tc6"
 epochs = 90
 
 # Hyper-parameters
@@ -80,6 +80,14 @@ def create_model(input_shape):
     model.add(Flatten())
 
     # Fully-connected layers.
+    model.add(Dense(1024))
+    model.add(Activation("relu"))
+    model.add(Dropout(0.1))
+
+    model.add(Dense(1024))
+    model.add(Activation("relu"))
+    model.add(Dropout(0.1))
+
     model.add(Dense(1024))
     model.add(Activation("relu"))
     model.add(Dropout(0.1))
