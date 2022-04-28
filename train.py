@@ -7,8 +7,8 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc12"
-epochs = 512
+version = "0.1.0tc13"
+epochs = 90
 
 # Hyper-parameters
 batch_size = 64
@@ -54,34 +54,34 @@ def create_model(input_shape):
     model.add(Conv2D(filters=32, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.55))
+    model.add(Dropout(0.65))
 
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.55))
+    model.add(Dropout(0.65))
 
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.55))
+    model.add(Dropout(0.65))
 
     model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.55))
+    model.add(Dropout(0.65))
 
     # Flattening the convolutions.
     model.add(Flatten())
 
     # Fully-connected layers.
-    model.add(Dense(1024))
+    model.add(Dense(1536))
     model.add(Activation("relu"))
     model.add(Dropout(0.1))
 
