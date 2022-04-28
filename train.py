@@ -7,7 +7,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc18"
+version = "0.1.0tc19"
 epochs = 90
 
 # Hyper-parameters
@@ -77,14 +77,20 @@ def create_model(input_shape):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dropout(0.35))
 
+    model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same"))
+    model.add(Activation("relu"))
+    model.add(Conv2D(filters=512, kernel_size=(3, 3), padding="same"))
+    model.add(Activation("relu"))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.35))
+
     # Flattening the convolutions.
     model.add(Flatten())
 
     # Fully-connected layers.
-    for i in range(2):
-        model.add(Dense((1024 * 3)))
-        model.add(Activation("relu"))
-        model.add(Dropout(0.25))
+    model.add(Dense(1024))
+    model.add(Activation("relu"))
+    model.add(Dropout(0.1))
 
     model.add(Dense(num_classes, activation="softmax"))
 

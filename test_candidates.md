@@ -76,3 +76,6 @@ Adding a new Conv layer with 256 filters and raising dropout on all Conv layers 
 
 # tc18
 `tc9` with two layers of (1024 * 3) dense nodes with 0.25 Dropout.
+
+# tc19
+Extra Conv Layer (512) with training speed 0.0005
