@@ -7,7 +7,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc16"
+version = "0.1.0tc18"
 epochs = 90
 
 # Hyper-parameters
@@ -81,9 +81,10 @@ def create_model(input_shape):
     model.add(Flatten())
 
     # Fully-connected layers.
-    model.add(Dense((1024 * 3)))
-    model.add(Activation("relu"))
-    model.add(Dropout(0.1))
+    for i in range(2):
+        model.add(Dense((1024 * 3)))
+        model.add(Activation("relu"))
+        model.add(Dropout(0.25))
 
     model.add(Dense(num_classes, activation="softmax"))
 

@@ -70,3 +70,9 @@ Adding a new Conv layer with 256 filters and raising dropout on all Conv layers 
 
 # tc16
 `tc9` with (1024 * 3) dense nodes.
+
+# tc17
+`tc9` with (1024 * 6) dense nodes with 0.25 Dropout.
+
+# tc18
+`tc9` with two layers of (1024 * 3) dense nodes with 0.25 Dropout.
