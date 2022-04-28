@@ -7,7 +7,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import os
 
-version = "0.1.0tc14"
+version = "0.1.0tc15"
 epochs = 90
 
 # Hyper-parameters
@@ -54,28 +54,28 @@ def create_model(input_shape):
     model.add(Conv2D(filters=32, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.20))
+    model.add(Dropout(0.35))
 
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=64, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.20))
+    model.add(Dropout(0.35))
 
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=128, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.20))
+    model.add(Dropout(0.35))
 
     model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(Conv2D(filters=256, kernel_size=(3, 3), padding="same"))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.20))
+    model.add(Dropout(0.35))
 
     # Flattening the convolutions.
     model.add(Flatten())
@@ -91,7 +91,7 @@ def create_model(input_shape):
     model.summary()
 
     # Training the model using adam optimizer.
-    opt = Adam(learning_rate=0.00007)
+    opt = Adam(learning_rate=0.0005)
     model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
     return model
 
