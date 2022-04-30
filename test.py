@@ -21,7 +21,7 @@ categories = {
 ds_train, ds_test, info = load_data()
 
 # Load the model with final model weights.
-model = load_model("results/cifar10-model-v1.h5")
+model = load_model("final_model.h5")
 
 # Evaluation
 loss, accuracy = model.evaluate(ds_test, steps=info.splits["test"].num_examples // batch_size)
