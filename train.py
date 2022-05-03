@@ -6,7 +6,9 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropou
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
+from tensorflow.keras.regularizers import l2
 
+model_name = "model-crazy"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -26,34 +28,38 @@ def prep_pixels(train, test):
 
 def make_model():
     model = Sequential([
-        Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)),
+        Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)),
         BatchNormalization(),
         
-        Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         BatchNormalization(),
         MaxPooling2D((2, 2)),
         Dropout(0.2),
         
-        Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         BatchNormalization(),
         
-        Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        BatchNormalization(),
+        MaxPooling2D((2, 2)),
+        Dropout(0.3),
+        
+        Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        BatchNormalization(),
+        
+        Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         BatchNormalization(),
         MaxPooling2D((2, 2)),
         Dropout(0.4),
         
-        Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
-        
-        Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
-        MaxPooling2D((2, 2)),
-        Dropout(0.6),
-        
         Flatten(),
-        Dense(128, activation='relu', kernel_initializer='he_uniform'),
+        Dense(512, activation='relu', kernel_initializer='he_uniform', kernel_regularizer=l2(0.005)),
         BatchNormalization(),
-        Dropout(0.8),
+        Dropout(0.5),
+
+        Dense(512, activation='relu', kernel_initializer='he_uniform', kernel_regularizer=l2(0.005)),
+        BatchNormalization(),
+        Dropout(0.5),
         
         Dense(10, activation='softmax')
     ])
@@ -71,10 +77,14 @@ if __name__ == "__main__":
     model = make_model()
 
     # Create data generator for data augmentation.
-    datagen = ImageDataGenerator(width_shift_range=0.1, height_shift_range=0.1, horizontal_flip=True)
+    datagen = ImageDataGenerator(
+        width_shift_range=0.1, 
+        height_shift_range=0.1,
+        horizontal_flip=True
+    )
     
     # Some logging settings.
-    logdir = os.path.join("logs", f"model")
+    logdir = os.path.join("logs", model_name)
     tensorboard = TensorBoard(log_dir=logdir)
     
     # Train the model.
@@ -93,4 +103,4 @@ if __name__ == "__main__":
     _, acc = model.evaluate(testX, testY, verbose=0)
     print('Final val_accuracy: %.3f' % (acc * 100.0))
 
-    model.save('model.h5')
+    model.save(f'{model_name}.h5')
