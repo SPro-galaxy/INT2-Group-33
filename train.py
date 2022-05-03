@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-crazy"
+model_name = "model-crazy-1"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -28,15 +28,7 @@ def prep_pixels(train, test):
 
 def make_model():
     model = Sequential([
-        Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)),
-        BatchNormalization(),
-        
-        Conv2D(64, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
-        MaxPooling2D((2, 2)),
-        Dropout(0.2),
-        
-        Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)),
         BatchNormalization(),
         
         Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
@@ -52,14 +44,22 @@ def make_model():
         MaxPooling2D((2, 2)),
         Dropout(0.4),
         
+        Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        BatchNormalization(),
+        
+        Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
+        BatchNormalization(),
+        MaxPooling2D((2, 2)),
+        Dropout(0.5),
+        
         Flatten(),
-        Dense(512, activation='relu', kernel_initializer='he_uniform', kernel_regularizer=l2(0.005)),
+        Dense(772, activation='relu', kernel_initializer='he_uniform'),
         BatchNormalization(),
-        Dropout(0.5),
+        Dropout(0.6),
 
-        Dense(512, activation='relu', kernel_initializer='he_uniform', kernel_regularizer=l2(0.005)),
+        Dense(772, activation='relu', kernel_initializer='he_uniform'),
         BatchNormalization(),
-        Dropout(0.5),
+        Dropout(0.7),
         
         Dense(10, activation='softmax')
     ])
