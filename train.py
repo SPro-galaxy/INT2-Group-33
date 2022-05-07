@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-crazy-2"
+model_name = "model-crazy-2-batch-16"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -88,8 +88,8 @@ if __name__ == "__main__":
     tensorboard = TensorBoard(log_dir=logdir)
     
     # Train the model.
-    it_train = datagen.flow(trainX, trainY, batch_size=64)
-    steps = int(trainX.shape[0] / 64)
+    it_train = datagen.flow(trainX, trainY, batch_size=16)
+    steps = int(trainX.shape[0] / 16)
     model.fit(
         it_train, 
         steps_per_epoch=steps, 
