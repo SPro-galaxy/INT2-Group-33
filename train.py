@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-crazy-2-batch-16"
+model_name = "model-base"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -29,37 +29,37 @@ def prep_pixels(train, test):
 def make_model():
     model = Sequential([
         Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)),
-        BatchNormalization(),
+        # BatchNormalization(),
         
         Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
+        # BatchNormalization(),
         MaxPooling2D((2, 2)),
-        Dropout(0.4),
+        # Dropout(0.4),
         
         Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
+        # BatchNormalization(),
         
         Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
+        # BatchNormalization(),
         MaxPooling2D((2, 2)),
-        Dropout(0.5),
+        # Dropout(0.5),
         
         Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
+        # BatchNormalization(),
         
         Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        BatchNormalization(),
+        # BatchNormalization(),
         MaxPooling2D((2, 2)),
-        Dropout(0.55),
+        # Dropout(0.55),
         
         Flatten(),
         Dense(772, activation='relu', kernel_initializer='he_uniform'),
-        BatchNormalization(),
-        Dropout(0.65),
+        # BatchNormalization(),
+        # Dropout(0.65),
 
         Dense(772, activation='relu', kernel_initializer='he_uniform'),
-        BatchNormalization(),
-        Dropout(0.75),
+        # BatchNormalization(),
+        # Dropout(0.75),
         
         Dense(10, activation='softmax')
     ])
@@ -78,9 +78,9 @@ if __name__ == "__main__":
 
     # Create data generator for data augmentation.
     datagen = ImageDataGenerator(
-        width_shift_range=0.1, 
-        height_shift_range=0.1,
-        horizontal_flip=True
+        # width_shift_range=0.1, 
+        # height_shift_range=0.1,
+        # horizontal_flip=True
     )
     
     # Some logging settings.
@@ -88,12 +88,12 @@ if __name__ == "__main__":
     tensorboard = TensorBoard(log_dir=logdir)
     
     # Train the model.
-    it_train = datagen.flow(trainX, trainY, batch_size=16)
-    steps = int(trainX.shape[0] / 16)
+    it_train = datagen.flow(trainX, trainY, batch_size=32)
+    steps = int(trainX.shape[0] / 32)
     model.fit(
-        it_train, 
+        it_train,
         steps_per_epoch=steps, 
-        epochs=800, 
+        epochs=100, 
         validation_data=(testX, testY), 
         verbose=1, 
         callbacks=[tensorboard]
