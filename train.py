@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-dropout"
+model_name = "model-batchnorm"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -29,37 +29,37 @@ def prep_pixels(train, test):
 def make_model():
     model = Sequential([
         Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same', input_shape=(32, 32, 3)),
-        # BatchNormalization(),
+        BatchNormalization(),
         
         Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        # BatchNormalization(),
+        BatchNormalization(),
         MaxPooling2D((2, 2)),
-        Dropout(0.1),
+        Dropout(0.4),
         
         Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        # BatchNormalization(),
+        BatchNormalization(),
         
         Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        # BatchNormalization(),
+        BatchNormalization(),
         MaxPooling2D((2, 2)),
-        Dropout(0.1),
+        Dropout(0.5),
         
         Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        # BatchNormalization(),
+        BatchNormalization(),
         
         Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
-        # BatchNormalization(),
+        BatchNormalization(),
         MaxPooling2D((2, 2)),
-        Dropout(0.1),
+        Dropout(0.55),
         
         Flatten(),
         Dense(772, activation='relu', kernel_initializer='he_uniform'),
-        # BatchNormalization(),
-        Dropout(0.1),
+        BatchNormalization(),
+        Dropout(0.65),
 
         Dense(772, activation='relu', kernel_initializer='he_uniform'),
-        # BatchNormalization(),
-        Dropout(0.1),
+        BatchNormalization(),
+        Dropout(0.75),
         
         Dense(10, activation='softmax')
     ])
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     model.fit(
         it_train,
         steps_per_epoch=steps, 
-        epochs=60, 
+        epochs=200, 
         validation_data=(testX, testY), 
         verbose=1, 
         callbacks=[tensorboard]
