@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-batchnorm"
+model_name = "model-dataaug"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -78,9 +78,9 @@ if __name__ == "__main__":
 
     # Create data generator for data augmentation.
     datagen = ImageDataGenerator(
-        # width_shift_range=0.1, 
-        # height_shift_range=0.1,
-        # horizontal_flip=True
+        width_shift_range=0.1, 
+        height_shift_range=0.1,
+        horizontal_flip=True
     )
     
     # Some logging settings.
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     model.fit(
         it_train,
         steps_per_epoch=steps, 
-        epochs=200, 
+        epochs=400, 
         validation_data=(testX, testY), 
         verbose=1, 
         callbacks=[tensorboard]
