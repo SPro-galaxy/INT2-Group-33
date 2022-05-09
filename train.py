@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-base"
+model_name = "model-dropout"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -34,7 +34,7 @@ def make_model():
         Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         # BatchNormalization(),
         MaxPooling2D((2, 2)),
-        # Dropout(0.4),
+        Dropout(0.1),
         
         Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         # BatchNormalization(),
@@ -42,7 +42,7 @@ def make_model():
         Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         # BatchNormalization(),
         MaxPooling2D((2, 2)),
-        # Dropout(0.5),
+        Dropout(0.1),
         
         Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         # BatchNormalization(),
@@ -50,16 +50,16 @@ def make_model():
         Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_uniform', padding='same'),
         # BatchNormalization(),
         MaxPooling2D((2, 2)),
-        # Dropout(0.55),
+        Dropout(0.1),
         
         Flatten(),
         Dense(772, activation='relu', kernel_initializer='he_uniform'),
         # BatchNormalization(),
-        # Dropout(0.65),
+        Dropout(0.1),
 
         Dense(772, activation='relu', kernel_initializer='he_uniform'),
         # BatchNormalization(),
-        # Dropout(0.75),
+        Dropout(0.1),
         
         Dense(10, activation='softmax')
     ])
