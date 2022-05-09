@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.regularizers import l2
 
-model_name = "model-dataaug"
+model_name = "model-dataaug-extra"
 
 def load_dataset():
     (trainX, trainY), (testX, testY) = cifar10.load_data()
@@ -78,9 +78,12 @@ if __name__ == "__main__":
 
     # Create data generator for data augmentation.
     datagen = ImageDataGenerator(
-        width_shift_range=0.1, 
-        height_shift_range=0.1,
-        horizontal_flip=True
+        rotation_range=40,
+        width_shift_range=0.2, 
+        height_shift_range=0.2,
+        zoom_range=0.2,
+        shear_range=0.2,
+        horizontal_flip=True,
     )
     
     # Some logging settings.
