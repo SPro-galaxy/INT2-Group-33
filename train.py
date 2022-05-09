@@ -93,7 +93,7 @@ if __name__ == "__main__":
     model.fit(
         it_train,
         steps_per_epoch=steps, 
-        epochs=100, 
+        epochs=60, 
         validation_data=(testX, testY), 
         verbose=1, 
         callbacks=[tensorboard]
